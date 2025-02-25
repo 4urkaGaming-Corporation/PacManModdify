@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 # from game import Game - в майбутньому реалізуємо файл game для логіки гри та основного циклу
 
-# Инициализация Pygame
+# Ініциалізація Pygame
 pygame.init()
 
 
