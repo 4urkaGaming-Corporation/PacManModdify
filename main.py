@@ -71,11 +71,23 @@ def show_info():
         
         # Малювання екрану інформації
         window.blit(background, (0, 0))  # Встановлення фону
-        info_text = font.render("Це фанова модифікація легендарної гри Pac-Man", True, (255, 255, 255))
-        window.blit(info_text, (WIDTH // 2 - info_text.get_width() // 2, HEIGHT // 2 - 50))
+        info_lines = [
+            "Це фанова модифікація легендарної гри Pac-Man",
+            "Розробники:",
+            "Старостин Максим",
+            "Возненко Богдан",
+            "Науменко Данило",
+            "Тимошенко Олександр"
+        ]
 
-        back_text = font.render("Натисніть ESC, щоб повернутися назад", True, (255, 255, 255))
-        window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, HEIGHT // 2 + 50))
+        start_y = HEIGHT // 2 - 100  # Початкова координата Y
+
+        for i, line in enumerate(info_lines):
+            text_surface = font.render(line, True, (0, 0, 255))
+            window.blit(text_surface, (WIDTH // 2 - text_surface.get_width() // 2, start_y + i * 30))
+
+        back_text = font.render("Натисніть ESC, щоб повернутися назад", True, (0, 255, 0))
+        window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, start_y + len(info_lines) * 30 + 20))
 
         pygame.display.flip()
 
