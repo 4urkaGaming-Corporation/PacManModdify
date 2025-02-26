@@ -76,9 +76,8 @@ def show_info():
 
 
 # Запуск гри
-if name == "main":
-    game = Game()
-    game.run()
+if __name__ == "__main__":
+    main_menu()
     pygame.quit()
 
 
