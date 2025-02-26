@@ -40,7 +40,8 @@ def main_menu():
                     game.run()
                     return
                 # Перевірка натискання на кнопку "Info"
-                # тут буде перевірка натискання на кнопку Інфо
+                if 300 <= mouse_x <= 500 and 300 <= mouse_y <= 350:
+                    show_info()
 
 
 
@@ -64,10 +65,10 @@ def show_info():
         
         # Малювання екрану інформації
         window.fill((0, 0, 0))  # Заповнення екрану чорним
-        info_text = font.render("This is a Pacman game with intelligent ghosts.", True, (255, 255, 255))
+        info_text = font.render("Це фанова модифікація легендарної гри Pac-Man", True, (255, 255, 255))
         window.blit(info_text, (WIDTH // 2 - info_text.get_width() // 2, HEIGHT // 2 - 50))
 
-        back_text = font.render("Press ESC to return", True, (255, 255, 255))
+        back_text = font.render("Натисніть ESC, щоб повернутися назад", True, (255, 255, 255))
         window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, HEIGHT // 2 + 50))
 
         pygame.display.flip()
