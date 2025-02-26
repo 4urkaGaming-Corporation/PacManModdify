@@ -52,8 +52,25 @@ def main_menu():
         pygame.display.flip()
 
 # Функція для відображення інформації
-# def show_info():
-   
+def show_info():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:  # Вихід з інформаційного вікна
+                    return
+        
+        # Малювання екрану інформації
+        window.fill((0, 0, 0))  # Заповнення екрану чорним
+        info_text = font.render("This is a Pacman game with intelligent ghosts.", True, (255, 255, 255))
+        window.blit(info_text, (WIDTH // 2 - info_text.get_width() // 2, HEIGHT // 2 - 50))
+
+        back_text = font.render("Press ESC to return", True, (255, 255, 255))
+        window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, HEIGHT // 2 + 50))
+
+        pygame.display.flip()
 
 
 
