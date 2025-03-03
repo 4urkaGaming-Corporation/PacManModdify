@@ -6,29 +6,33 @@ from settings import *
 #Клас пакмен
 class Pacman:
     def init(self):
-        self.pos = INITIAL_PACMAN_POS.copy()
-        self.radius = PACMAN_RADIUS
-        self.speed = PACMAN_SPEED
+        self.pos = INITIAL_PACMAN_POS.copy() #позиція на мапі
+        self.radius = PACMAN_RADIUS #радіус
+        self.speed = PACMAN_SPEED #швидкість
 
+#Переміщення з використанням pygame
     def move(self, keys, walls):
         new_pos = self.pos.copy()
         if keys[pygame.K_LEFT]:
-            new_pos[0] -= self.speed
+            new_pos[0] -= self.speed #ліво
         if keys[pygame.K_RIGHT]:
-            new_pos[0] += self.speed
+            new_pos[0] += self.speed #право
         if keys[pygame.K_UP]:
-            new_pos[1] -= self.speed
+            new_pos[1] -= self.speed #верх
         if keys[pygame.K_DOWN]:
-            new_pos[1] += self.speed
+            new_pos[1] += self.speed #вниз
 
+#Перевірка щоб об'єкт не врізався в стіни
         rect = pygame.Rect(new_pos[0] - self.radius, new_pos[1] - self.radius,
                            self.radius * 2, self.radius * 2)
         if not any(rect.colliderect(wall) for wall in walls):
             self.pos = new_pos
 
+#Створеня спрайта пакмена
     def draw(self, window):
         pygame.draw.circle(window, YELLOW, (int(self.pos[0]), int(self.pos[1])), self.radius)
 
+#Пакмен не зіткнется зі стіною
     def get_rect(self):
         return pygame.Rect(self.pos[0] - self.radius, self.pos[1] - self.radius,
                            self.radius * 2, self.radius * 2)
