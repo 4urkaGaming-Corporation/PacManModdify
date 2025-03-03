@@ -3,7 +3,7 @@ import random
 import math
 from settings import *
 
-#Бета для акторів у майбутьньому (привиди, пакмен, монети)
+#Клас пакмен
 class Pacman:
     def init(self):
         self.pos = INITIAL_PACMAN_POS.copy()
