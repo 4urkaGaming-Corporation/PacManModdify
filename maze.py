@@ -13,6 +13,10 @@ WINDOW_HEIGHT = GRID_HEIGHT * CELL_SIZE
 WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Лабіринт Пакмена")
 
+# Шрифт для лічильника монет
+font = pygame.font.Font(None, 30)
+coin_count = 0  # Лічильник зібраних монет
+
 # Лабіринт із кліткою для привидів
 labyrinth = [
     "############################",
@@ -59,8 +63,11 @@ GRAY = (150, 150, 150)  # Колір дверей
 class Coin:
     def __init__(self, x, y):
         self.rect = pygame.Rect(x, y, COIN_SIZE, COIN_SIZE)
+        self.collected = False
+    
     def draw(self, window):
-        pygame.draw.rect(window, YELLOW, self.rect)
+        if not self.collected:
+            pygame.draw.rect(window, YELLOW, self.rect)
 
 # Клас для Power Pellets
 class PowerPellet:
@@ -68,6 +75,7 @@ class PowerPellet:
         self.rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
         self.visible = True
         self.last_toggle = time.time()
+    
     def draw(self, window):
         current_time = time.time()
         if current_time - self.last_toggle >= 0.5:
@@ -125,6 +133,10 @@ while running:
     # Малюємо Power Pellets
     for pellet in power_pellets:
         pellet.draw(WINDOW)
+    
+    # Відображення лічильника монет
+    coin_text = font.render(f"Монети: {coin_count}", True, WHITE)
+    WINDOW.blit(coin_text, (10, 10))
     
     pygame.display.flip()
 
