@@ -14,7 +14,7 @@ WINDOW = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Лабіринт Пакмена")
 
 # Шрифт для лічильника монет
-font = pygame.font.Font(None, 30)
+font = pygame.font.Font(None, 36)
 coin_count = 0  # Лічильник зібраних монет
 
 # Лабіринт із кліткою для привидів
@@ -136,7 +136,7 @@ while running:
     
     # Відображення лічильника монет
     coin_text = font.render(f"Монети: {coin_count}", True, WHITE)
-    WINDOW.blit(coin_text, (10, 10))
+    WINDOW.blit(coin_text, (0, 0))
     
     pygame.display.flip()
 
