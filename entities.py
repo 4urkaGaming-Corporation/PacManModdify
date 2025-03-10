@@ -47,19 +47,22 @@ class Enemy:
         # Початковий напрямок руху
         self.direction = [random.choice([-1, 1]), random.choice([-1, 1])]
 
+    # Метод для руху ворога
     def move(self, pacman_pos, walls):
         dx = pacman_pos[0] - self.pos[0]
         dy = pacman_pos[1] - self.pos[1]
         distance = math.sqrt(dx**2 + dy**2)
         new_pos = self.pos.copy()
 
+        # Якщо Пакмен у зоні видимості, ворог рухається до нього
         if distance < VISIBILITY_RANGE and distance > 0:
             new_pos[0] += (dx / distance) * self.speed
             new_pos[1] += (dy / distance) * self.speed
         else:
+            # Випадковий рух, якщо Пакмен далеко
             new_pos[0] += self.direction[0] * self.speed
             new_pos[1] += self.direction[1] * self.speed
-            if random.random() < 0.02:
+            if random.random() < 0.02: # Іноді змінює напрямок
                 self.direction = [random.choice([-1, 0, 1]), random.choice([-1, 0, 1])]
 
         rect = pygame.Rect(new_pos[0] - self.radius, new_pos[1] - self.radius,
