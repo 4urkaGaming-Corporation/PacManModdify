@@ -37,6 +37,7 @@ class Pacman:
         return pygame.Rect(self.pos[0] - self.radius, self.pos[1] - self.radius,
                            self.radius * 2, self.radius * 2)
 
+# Клас, що представляє ворога
 class Enemy:
     def init(self, pos, color):
         self.pos = pos.copy()
