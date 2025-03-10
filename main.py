@@ -13,6 +13,12 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pac Man: FunModify")
 
 
+
+# Завантаження зображення для фону
+background = pygame.image.load("background.jpg")  # Картинка фону
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Масштабування під екран
+
+
 # Шрифт для тексту
 font = pygame.font.Font(None, 36)
 
@@ -46,9 +52,9 @@ def main_menu():
 
 
         # Малювання меню
-        window.fill((0, 0, 0))  # Заповнення екрану чорним
-        draw_button("Start", 300, 200, 200, 50, (0, 255, 0), (255, 255, 255))
-        draw_button("Info", 300, 300, 200, 50, (0, 0, 255), (255, 255, 255))
+        window.blit(background, (0, 0))  # Встановлення фону
+        draw_button("Start", 300, 200, 200, 50, (0, 0, 255), (255, 255, 255))
+        draw_button("Info", 300, 300, 200, 50, (0, 255, 0), (255, 255, 255))
         
         pygame.display.flip()
 
@@ -64,21 +70,34 @@ def show_info():
                     return
         
         # Малювання екрану інформації
-        window.fill((0, 0, 0))  # Заповнення екрану чорним
-        info_text = font.render("Це фанова модифікація легендарної гри Pac-Man", True, (255, 255, 255))
-        window.blit(info_text, (WIDTH // 2 - info_text.get_width() // 2, HEIGHT // 2 - 50))
+        window.blit(background, (0, 0))  # Встановлення фону
+        info_lines = [
+            "Це фанова модифікація легендарної гри Pac-Man",
+            "Розробники:",
+            "Старостин Максим",
+            "Возненко Богдан",
+            "Науменко Данило",
+            "Тимошенко Олександр"
+        ]
 
-        back_text = font.render("Натисніть ESC, щоб повернутися назад", True, (255, 255, 255))
-        window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, HEIGHT // 2 + 50))
+        start_y = HEIGHT // 2 - 100  # Початкова координата Y
+
+        for i, line in enumerate(info_lines):
+            text_surface = font.render(line, True, (0, 0, 255))
+            window.blit(text_surface, (WIDTH // 2 - text_surface.get_width() // 2, start_y + i * 30))
+
+        back_text = font.render("Натисніть ESC, щоб повернутися назад", True, (0, 255, 0))
+        window.blit(back_text, (WIDTH // 2 - back_text.get_width() // 2, start_y + len(info_lines) * 30 + 20))
 
         pygame.display.flip()
 
 
 
 # Запуск гри
-if __name__ == "main":
-    game = Game()
-    game.run()
+if __name__ == "__main__":
+    main_menu()
     pygame.quit()
+
+
 
 
