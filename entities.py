@@ -65,11 +65,12 @@ class Enemy:
             if random.random() < 0.02: # Іноді змінює напрямок
                 self.direction = [random.choice([-1, 0, 1]), random.choice([-1, 0, 1])]
 
+        # Перевірка, чи не стикається ворог зі стіною
         rect = pygame.Rect(new_pos[0] - self.radius, new_pos[1] - self.radius,
                            self.radius * 2, self.radius * 2)
         if not any(rect.colliderect(wall) for wall in walls):
-            self.pos = new_pos
-        elif distance >= VISIBILITY_RANGE:
+            self.pos = new_pos # Оновлення позиції ворога
+        elif distance >= VISIBILITY_RANGE: # Якщо далеко, змінює напрямок
             self.direction = [random.choice([-1, 0, 1]), random.choice([-1, 0, 1])]
 
     def draw(self, window):
