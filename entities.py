@@ -40,10 +40,11 @@ class Pacman:
 # Клас, що представляє ворога
 class Enemy:
     def init(self, pos, color):
-        self.pos = pos.copy()
-        self.radius = ENEMY_RADIUS
-        self.speed = ENEMY_SPEED
-        self.color = color
+        self.pos = pos.copy() # Початкова позиція ворога
+        self.radius = ENEMY_RADIUS # Радіус ворога
+        self.speed = ENEMY_SPEED # Швидкість руху
+        self.color = color # Колір ворога
+        # Початковий напрямок руху
         self.direction = [random.choice([-1, 1]), random.choice([-1, 1])]
 
     def move(self, pacman_pos, walls):
