@@ -72,16 +72,20 @@ class Enemy:
             self.pos = new_pos # Оновлення позиції ворога
         elif distance >= VISIBILITY_RANGE: # Якщо далеко, змінює напрямок
             self.direction = [random.choice([-1, 0, 1]), random.choice([-1, 0, 1])]
+
     # Відображення ворога на екрані
     def draw(self, window):
         pygame.draw.circle(window, self.color, (int(self.pos[0]), int(self.pos[1])), self.radius)
+
     # Отримання прямокутника для перевірки зіткнень
     def get_rect(self):
         return pygame.Rect(self.pos[0] - self.radius, self.pos[1] - self.radius,
                            self.radius * 2, self.radius * 2)
 
+# Клас, що представляє монетку
 class Coin:
     def init(self, x, y):
-        self.rect = pygame.Rect(x, y, COIN_SIZE, COIN_SIZE)
+        self.rect = pygame.Rect(x, y, COIN_SIZE, COIN_SIZE) # Позиція і розмір монетки
+    # Відображення монетки на екрані       
     def draw(self, window):
         pygame.draw.rect(window, WHITE, self.rect)
