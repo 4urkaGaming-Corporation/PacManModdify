@@ -18,4 +18,6 @@ VISIBILITY_RANGE = 200
 INITIAL_ENEMIES = [
     {"pos": [50, 50], "color": RED},
     {"pos": [750, 50], "color": PINK},
+    {"pos": [50, 550], "color": CYAN},
+    {"pos": [750, 550], "color": ORANGE}
 ]
