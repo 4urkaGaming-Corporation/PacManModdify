@@ -10,7 +10,7 @@ ORANGE = (255, 165, 0)
 # Параметри Пекмена
 PACMAN_RADIUS = 15
 PACMAN_SPEED = 5
-INITIAL_PACMAN_POS = [800 // 2 - 50, 600 // 2]
+INITIAL_PACMAN_POS = [WIDTH // 2 - 50, HEIGHT // 2]
 # Параметри ворогів
 ENEMY_RADIUS = 15
 ENEMY_SPEED = 3
