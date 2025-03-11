@@ -15,3 +15,7 @@ INITIAL_PACMAN_POS = [800 // 2 - 50, 600 // 2]
 ENEMY_RADIUS = 15
 ENEMY_SPEED = 3
 VISIBILITY_RANGE = 200
+INITIAL_ENEMIES = [
+    {"pos": [50, 50], "color": RED},
+    {"pos": [750, 50], "color": PINK},
+]
