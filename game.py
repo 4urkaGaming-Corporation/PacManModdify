@@ -42,5 +42,11 @@ class Game:
 
             score_text = self.font.render(f"Score: {self.score}", True, WHITE)
             self.window.blit(score_text, (10, 10))
+
+            if self.game_over:
+                game_over_text = self.font.render("Game Over! Press Q to quit", True, WHITE)
+                self.window.blit(game_over_text, (WIDTH // 2 - 150, HEIGHT // 2))
+                if keys[pygame.K_q]:
+                    running = False
             pygame.display.flip()
             self.clock.tick(60)
