@@ -22,6 +22,18 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
 
+            if not self.game_over:
+                keys = pygame.key.get_pressed()
+                self.pacman.move(keys, self.maze.walls)
+
+                for enemy in self.enemies:
+                    enemy.move(self.pacman.pos, self.maze.walls)
+                    if self.pacman.get_rect().colliderect(enemy.get_rect()):
+                        self.game_over = True
+
+                self.maze.coins = [coin for coin in self.maze.coins if not self.pacman.get_rect().colliderect(coin.rect)]
+                self.score += 10 * (COIN_COUNT - len(self.maze.coins) - self.score // 10)
+
             self.window.fill(BLACK)
             self.maze.draw(self.window)
             self.pacman.draw(self.window)
