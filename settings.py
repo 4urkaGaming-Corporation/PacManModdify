@@ -24,3 +24,6 @@ INITIAL_ENEMIES = [
     {"pos": [50, 550], "color": CYAN},
     {"pos": [750, 550], "color": ORANGE}
 ]
+
+COIN_COUNT = 30
+COIN_SIZE = 10
