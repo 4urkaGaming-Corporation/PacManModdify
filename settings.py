@@ -1,6 +1,4 @@
-# Настройки Вікна
-WIDTH = 800
-HEIGHT = 600
+from main import WIDTH, HEIGHT
 # Кольори
 BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
