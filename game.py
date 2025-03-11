@@ -4,9 +4,9 @@ from entities import Pacman, Enemy
 from maze import Maze
 
 class Game:
-    def init(self):
+    def __init__(self):
         self.window = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Пекмен с умными призраками")
+        pygame.display.set_caption("Pac Man: FunModify")
         self.clock = pygame.time.Clock()
         self.pacman = Pacman()
         self.enemies = [Enemy(enemy["pos"], enemy["color"]) for enemy in INITIAL_ENEMIES]
@@ -14,6 +14,7 @@ class Game:
         self.score = 0
         self.font = pygame.font.Font(None, 36)
         self.game_over = False
+        self.initial_coin_count = len(self.maze.coins)
 
     def run(self):
         running = True
@@ -22,17 +23,15 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
 
+            keys = pygame.key.get_pressed()
             if not self.game_over:
-                keys = pygame.key.get_pressed()
                 self.pacman.move(keys, self.maze.walls)
-
                 for enemy in self.enemies:
                     enemy.move(self.pacman.pos, self.maze.walls)
                     if self.pacman.get_rect().colliderect(enemy.get_rect()):
                         self.game_over = True
-
                 self.maze.coins = [coin for coin in self.maze.coins if not self.pacman.get_rect().colliderect(coin.rect)]
-                self.score += 10 * (COIN_COUNT - len(self.maze.coins) - self.score // 10)
+                self.score = 10 * (self.initial_coin_count - len(self.maze.coins))
 
             self.window.fill(BLACK)
             self.maze.draw(self.window)
@@ -48,5 +47,6 @@ class Game:
                 self.window.blit(game_over_text, (WIDTH // 2 - 150, HEIGHT // 2))
                 if keys[pygame.K_q]:
                     running = False
+
             pygame.display.flip()
             self.clock.tick(60)
