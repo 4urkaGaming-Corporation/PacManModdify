@@ -10,3 +10,4 @@ ORANGE = (255, 165, 0)
 # Параметры Пекмена
 PACMAN_RADIUS = 15
 PACMAN_SPEED = 5
+INITIAL_PACMAN_POS = [WIDTH // 2 - 50, HEIGHT // 2]
