@@ -9,29 +9,39 @@ pygame.display.set_caption("Pac Man: FunModify")
 
 font = pygame.font.Font(None, 36)
 
+background_image = pygame.image.load("background.png").convert()  
+background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+
 def draw_button(text, x, y, width, height, color, text_color):
     pygame.draw.rect(window, color, (x, y, width, height))
     label = font.render(text, True, text_color)
     window.blit(label, (x + (width - label.get_width()) // 2, y + (height - label.get_height()) // 2))
+    return (x, y, width, height)  
 
 def main_menu():
     running = True
+    start_button_rect = (250, 250, 200, 50)  
+    info_button_rect = (250, 350, 200, 50)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                if 300 <= mouse_x <= 500 and 200 <= mouse_y <= 250:
+                x, y, w, h = start_button_rect
+                if x <= mouse_x <= x + w and y <= mouse_y <= y + h:
                     game = Game()
                     game.run()
                     return
-                if 300 <= mouse_x <= 500 and 300 <= mouse_y <= 350:
+                # Проверка клика по кнопке "Info"
+                x, y, w, h = info_button_rect
+                if x <= mouse_x <= x + w and y <= mouse_y <= y + h:
                     show_info()
 
-        window.fill(BLACK)
-        draw_button("Start", 300, 200, 200, 50, BLUE, WHITE)
-        draw_button("Info", 300, 300, 200, 50, (0, 255, 0), WHITE)
+        window.blit(background_image, (0, 0))
+        start_button_rect = draw_button("Start", 250, 250, 200, 50, BLUE, WHITE)
+        info_button_rect = draw_button("Info", 250, 350, 200, 50, (0, 255, 0), WHITE)
         pygame.display.flip()
 
 def show_info():
@@ -44,7 +54,7 @@ def show_info():
                 if event.key == pygame.K_ESCAPE:
                     return
 
-        window.fill(BLACK)
+        window.blit(background_image, (0, 0))
         info_lines = [
             "Це фанова модифікація легендарної гри Pac-Man",
             "Розробники:",
