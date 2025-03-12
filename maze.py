@@ -39,17 +39,13 @@ class Maze:
     def __init__(self):
         self.walls = self.get_walls()
         self.coins = []
-        self.power_pellets = []
+        
         for row in range(len(labyrinth)):
             for col in range(len(labyrinth[row])):
                 if labyrinth[row][col] == "0":
                     coin_x = col * CELL_SIZE + (CELL_SIZE - COIN_SIZE) // 2
                     coin_y = row * CELL_SIZE + (CELL_SIZE - COIN_SIZE) // 2
                     self.coins.append(Coin(coin_x, coin_y))
-                elif labyrinth[row][col] == "P":
-                    pellet_x = col * CELL_SIZE
-                    pellet_y = row * CELL_SIZE
-                    self.power_pellets.append(PowerPellet(pellet_x, pellet_y))
 
     def get_walls(self):
         walls = []
@@ -68,7 +64,5 @@ class Maze:
                     pygame.draw.rect(window, GRAY, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
         for coin in self.coins:
             coin.draw(window)
-        for pellet in self.power_pellets:
-            pellet.draw(window)
 
-from entities import Coin, PowerPellet
+from entities import Coin
