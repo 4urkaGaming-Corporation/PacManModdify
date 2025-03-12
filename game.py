@@ -4,7 +4,7 @@ from entities import Pacman, Enemy
 from maze import Maze
 
 class Game:
-    def __init__(self):
+    def __init__(self, volume): 
         self.window = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Pac Man: FunModify")
         self.clock = pygame.time.Clock()
@@ -18,7 +18,7 @@ class Game:
         self.initial_coin_count = len(self.maze.coins)
         pygame.mixer.init()
         pygame.mixer.music.load("background_music.mp3")
-        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.set_volume(volume)  
         pygame.mixer.music.play(-1)
 
     def run(self):
@@ -66,6 +66,6 @@ class Game:
             self.clock.tick(60)
 
 if __name__ == "__main__":
-    game = Game()
+    game = Game(0.5)  
     game.run()
     pygame.quit()
