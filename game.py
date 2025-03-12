@@ -14,8 +14,12 @@ class Game:
         self.score = 0
         self.font = pygame.font.Font(None, 36)
         self.game_over = False
-        self.game_won = False  # Нова змінна для стану перемоги
+        self.game_won = False
         self.initial_coin_count = len(self.maze.coins)
+        pygame.mixer.init()
+        pygame.mixer.music.load("background_music.mp3")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
 
     def run(self):
         running = True
@@ -25,7 +29,7 @@ class Game:
                     running = False
 
             keys = pygame.key.get_pressed()
-            if not self.game_over and not self.game_won:  # Гра продовжується, якщо немає ні програшу, ні перемоги
+            if not self.game_over and not self.game_won:
                 self.pacman.move(keys, self.maze.walls)
                 for enemy in self.enemies:
                     enemy.move(self.pacman.pos, self.maze.walls)
@@ -33,8 +37,6 @@ class Game:
                         self.game_over = True
                 self.maze.coins = [coin for coin in self.maze.coins if not self.pacman.get_rect().colliderect(coin.rect)]
                 self.score = 10 * (self.initial_coin_count - len(self.maze.coins))
-
-                # Перевірка на перемогу
                 if self.score >= 5000:
                     self.game_won = True
 
@@ -51,12 +53,19 @@ class Game:
                 game_over_text = self.font.render("Game Over! Press Q to quit", True, WHITE)
                 self.window.blit(game_over_text, (WIDTH // 2 - 150, HEIGHT // 2))
                 if keys[pygame.K_q]:
+                    pygame.mixer.music.stop()
                     running = False
-            elif self.game_won:  # Відображення повідомлення про перемогу
+            elif self.game_won:
                 win_text = self.font.render("You Won! Press Q to quit", True, WHITE)
                 self.window.blit(win_text, (WIDTH // 2 - 150, HEIGHT // 2))
                 if keys[pygame.K_q]:
+                    pygame.mixer.music.stop()
                     running = False
 
             pygame.display.flip()
             self.clock.tick(60)
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
+    pygame.quit()
