@@ -45,7 +45,7 @@ def settings_menu():
                     pygame.mixer.music.set_volume(volume)
 
         window.blit(background_image, (0, 0))
-        volume_text = font.render(f"Volume: {int(volume * 100)}%", True, WHITE)
+        volume_text = font.render(f"Music Volume: {int(volume * 100)}%", True, WHITE)
         window.blit(volume_text, (WIDTH // 2 - volume_text.get_width() // 2, 200))
         draw_button("+", 200, 300, 100, 50, BLUE, WHITE)
         draw_button("-", 400, 300, 100, 50, BLUE, WHITE)
