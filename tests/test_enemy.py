@@ -1,3 +1,4 @@
+import math
 import pygame
 import pytest
 from entities import Enemy
@@ -31,14 +32,14 @@ def test_enemy_move_toward_pacman(enemy, pacman_pos, walls, mocker):
     mocker.patch("maze.Maze.get_walls", return_value=[])
     original_pos = enemy.pos.copy()
     enemy.move(pacman_pos, [])
-    distance_before = (
-        (original_pos[0] - pacman_pos[0])**2 +
-        (original_pos[1] - pacman_pos[1])**2
-    )**0.5
-    distance_after = (
-        (enemy.pos[0] - pacman_pos[0])**2 +
-        (enemy.pos[1] - pacman_pos[1])**2
-    )**0.5
+    distance_before = math.sqrt(
+        (original_pos[0] - pacman_pos[0]) ** 2 +
+        (original_pos[1] - pacman_pos[1]) ** 2
+    )
+    distance_after = math.sqrt(
+        (enemy.pos[0] - pacman_pos[0]) ** 2 +
+        (enemy.pos[1] - pacman_pos[1]) ** 2
+    )
     assert distance_after <= distance_before
 
 
@@ -47,7 +48,6 @@ def test_enemy_collision_with_wall(enemy, walls, mocker):
     enemy.direction = [0, 0]
     original_pos = enemy.pos.copy()
     mocker.patch("random.choice", return_value=0)
-    walls = [pygame.Rect(110, 110, CELL_SIZE, CELL_SIZE)]
     enemy.move([1000, 1000], walls)
     assert enemy.pos == original_pos
 
