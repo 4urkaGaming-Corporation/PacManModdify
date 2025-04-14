@@ -36,6 +36,10 @@ class Game:
                 coin.collected = True
                 self.score += 10
 
+    def check_win_condition(self):
+        if self.score >= 5000:
+            self.game_won = True
+
     def run(self):
         while not self.game_over and not self.game_won:
             for event in pygame.event.get():
@@ -51,9 +55,7 @@ class Game:
                 enemy.move(self.pacman.pos, self.maze.walls)
 
             self.check_collisions()
-
-            if self.score >= 5000:
-                self.game_won = True
+            self.check_win_condition()
 
             self.window.fill((0, 0, 0))
             self.maze.draw(self.window)
