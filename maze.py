@@ -1,9 +1,11 @@
 import pygame
-from settings import *
+from settings import CELL_SIZE, COIN_SIZE, BLUE, GRAY
+from entities import Coin
+
 
 labyrinth = [
     "############################",
-    "#00000#00000000#0000000000##",
+    "#00000#00000000#0000000000#",
     "#0####0#0#####00#0####00000#",
     "#0####0#0000000000####00000#",
     "#000000#0#0##000000000#0000#",
@@ -35,11 +37,12 @@ labyrinth = [
     "############################"
 ]
 
+
 class Maze:
     def __init__(self):
         self.walls = self.get_walls()
         self.coins = []
-        
+
         for row in range(len(labyrinth)):
             for col in range(len(labyrinth[row])):
                 if labyrinth[row][col] == "0":
@@ -52,17 +55,24 @@ class Maze:
         for row in range(len(labyrinth)):
             for col in range(len(labyrinth[row])):
                 if labyrinth[row][col] == "#":
-                    walls.append(pygame.Rect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                    walls.append(pygame.Rect(
+                        col * CELL_SIZE, row * CELL_SIZE,
+                        CELL_SIZE, CELL_SIZE
+                    ))
         return walls
 
     def draw(self, window):
         for row in range(len(labyrinth)):
             for col in range(len(labyrinth[row])):
                 if labyrinth[row][col] == "#":
-                    pygame.draw.rect(window, BLUE, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                    pygame.draw.rect(
+                        window, BLUE,
+                        (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                    )
                 elif labyrinth[row][col] == "-":
-                    pygame.draw.rect(window, GRAY, (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                    pygame.draw.rect(
+                        window, GRAY,
+                        (col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                    )
         for coin in self.coins:
             coin.draw(window)
-
-from entities import Coin
