@@ -32,18 +32,18 @@ def test_game_score_update(game, mocker):
 
 
 def test_game_over_collision(game, mocker):
-    # перевірка логіки напряму
+    # перевірка колізії напряму
     mocker.patch.object(
         game.pacman, "get_rect", return_value=pygame.Rect(50, 50, 20, 20)
     )
     mocker.patch.object(
         game.enemies[0], "get_rect", return_value=pygame.Rect(50, 50, 20, 20)
     )
-    # колізія
     game.check_collisions()
     assert game.game_over
 
 
 def test_game_win_condition(game):
     game.score = 5000
+    game.check_win_condition()
     assert game.game_won
