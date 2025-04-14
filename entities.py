@@ -1,10 +1,16 @@
+python
+
+Копировать
 import pygame
 import random
 import math
 import time
-from settings import *
+from settings import (
+    INITIAL_PACMAN_POS, PACMAN_RADIUS, PACMAN_SPEED, WIDTH, HEIGHT, YELLOW,
+    ENEMY_RADIUS, ENEMY_SPEED, VISIBILITY_RANGE, COIN_SIZE, CELL_SIZE, WHITE
+)
 
-# Клас Pacman
+
 class Pacman:
     def __init__(self):
         self.pos = INITIAL_PACMAN_POS.copy()
@@ -21,13 +27,14 @@ class Pacman:
             new_pos[1] -= self.speed
         if keys[pygame.K_DOWN]:
             new_pos[1] += self.speed
-        
-        # Перевірка меж екрану
+
         new_pos[0] = max(self.radius, min(WIDTH - self.radius, new_pos[0]))
         new_pos[1] = max(self.radius, min(HEIGHT - self.radius, new_pos[1]))
-        
-        rect = pygame.Rect(new_pos[0] - self.radius, new_pos[1] - self.radius,
-                           self.radius * 2, self.radius * 2)
+
+        rect = pygame.Rect(
+            new_pos[0] - self.radius, new_pos[1] - self.radius,
+            self.radius * 2, self.radius * 2
+        )
         if not any(rect.colliderect(wall) for wall in walls):
             self.pos = new_pos
 
@@ -35,10 +42,12 @@ class Pacman:
         pygame.draw.circle(window, YELLOW, (int(self.pos[0]), int(self.pos[1])), self.radius)
 
     def get_rect(self):
-        return pygame.Rect(self.pos[0] - self.radius, self.pos[1] - self.radius,
-                           self.radius * 2, self.radius * 2)
+        return pygame.Rect(
+            self.pos[0] - self.radius, self.pos[1] - self.radius,
+            self.radius * 2, self.radius * 2
+        )
 
-# Клас Enemy
+
 class Enemy:
     def __init__(self, pos, color):
         self.pos = pos.copy()
@@ -46,7 +55,6 @@ class Enemy:
         self.speed = ENEMY_SPEED
         self.color = color
         self.direction = [random.choice([-1, 1]), random.choice([-1, 1])]
-        # Імпортуємо Maze локально, щоб уникнути циклічного імпорту
         from maze import Maze
         rect = self.get_rect()
         walls = Maze().walls
@@ -69,8 +77,10 @@ class Enemy:
             if random.random() < 0.05:
                 self.direction = [random.choice([-1, 0, 1]), random.choice([-1, 0, 1])]
 
-        rect = pygame.Rect(new_pos[0] - self.radius, new_pos[1] - self.radius,
-                           self.radius * 2, self.radius * 2)
+        rect = pygame.Rect(
+            new_pos[0] - self.radius, new_pos[1] - self.radius,
+            self.radius * 2, self.radius * 2
+        )
         if not any(rect.colliderect(wall) for wall in walls):
             self.pos = new_pos
         else:
@@ -80,10 +90,12 @@ class Enemy:
         pygame.draw.circle(window, self.color, (int(self.pos[0]), int(self.pos[1])), self.radius)
 
     def get_rect(self):
-        return pygame.Rect(self.pos[0] - self.radius, self.pos[1] - self.radius,
-                           self.radius * 2, self.radius * 2)
+        return pygame.Rect(
+            self.pos[0] - self.radius, self.pos[1] - self.radius,
+            self.radius * 2, self.radius * 2
+        )
 
-# Клас Coin
+
 class Coin:
     def __init__(self, x, y):
         self.rect = pygame.Rect(x, y, COIN_SIZE, COIN_SIZE)
@@ -93,7 +105,7 @@ class Coin:
         if not self.collected:
             pygame.draw.rect(window, YELLOW, self.rect)
 
-# Клас PowerPellet
+
 class PowerPellet:
     def __init__(self, x, y):
         self.rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
@@ -106,4 +118,7 @@ class PowerPellet:
             self.visible = not self.visible
             self.last_toggle = current_time
         if self.visible:
-            pygame.draw.circle(window, WHITE, (self.rect.centerx, self.rect.centery), CELL_SIZE // 3)
+            pygame.draw.circle(
+                window, WHITE, (self.rect.centerx, self.rect.centery),
+                CELL_SIZE // 3
+            )
