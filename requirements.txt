@@ -1,0 +1,6 @@
+﻿pygame==2.6.0
+pytest==8.3.3
+pytest-html==4.1.1
+flake8==7.1.1
+flake8-html==0.4.3
+pytest-mock==3.14.0
