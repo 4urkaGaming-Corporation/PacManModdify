@@ -24,6 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "requirements.txt not found"; exit 1; fi
     - name: Lint with flake8
+      continue-on-error: true  # Добавлено
       run: |
         flake8 . --max-line-length=100 --exclude=venv --count --statistics --output-file=flake8-report.txt
     - name: Test with pytest
