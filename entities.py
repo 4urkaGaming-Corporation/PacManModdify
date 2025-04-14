@@ -1,6 +1,3 @@
-python
-
-Копировать
 import pygame
 import random
 import math
